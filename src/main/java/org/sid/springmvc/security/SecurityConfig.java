@@ -6,16 +6,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-public class SecurityController  extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-      http.formLogin();
-      http.authorizeRequests().anyRequest().authenticated();
+     http.formLogin();
+    // http.httpBasic();
+     http.authorizeRequests().antMatchers("/save**/**","/form**/**","/delete**/**").hasRole("ADMIN");
+     http.authorizeRequests().anyRequest().authenticated();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("user").password("{noop}12345").roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password("{noop}12345").roles("ADMIN","USER");
     }
 }
