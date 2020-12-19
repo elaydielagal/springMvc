@@ -5,15 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <!--<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css">
-    <script src="/webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
-    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/webjars/popper.js/1.16.0/popper.min.js"></script>-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!--  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css">
+ <script src="/webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+ <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+ <script src="/webjars/popper.js/1.16.0/popper.min.js"></script> -->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
@@ -37,7 +39,7 @@
                 Patient
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" th:href="@{formPatient}">ajouter</a>
+                <a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{formPatient}">ajouter</a>
                 <a class="dropdown-item" href="#">chercher</a>
             </div>
         </li></ul>
@@ -46,11 +48,11 @@
 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop1" data-toggle="dropdown">
-                [username]
+                <span sec:authentication="name"></span>
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">login</a>
-                <a class="dropdown-item" th:href="@{logout}">logout</a>
+                <a sec:authorize="!isAuthenticated()" class="dropdown-item" href="#">login</a>
+                <a sec:authorize="isAuthenticated()"  class="dropdown-item" th:href="@{logout}">logout</a>
                 <a class="dropdown-item" href="#">Profil</a>
             </div>
         </li>
